@@ -1,0 +1,43 @@
+# This is a basic pipeline to help you get started with the C/C++test for a CMake-based project.
+
+stages:
+  - build         
+  - test
+
+build-cmake:
+  stage: build
+  script:
+    # Configures your CMake project. Be sure the compile_commands.json file is created.
+    - echo "Configuring project..."
+    - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
+    # Builds your CMake project. (This step is optional, as it is not required for code analysis).
+    - echo "Building project..."
+    - cmake --build build
+  artifacts: 
+    # Archives build/compile_commands.json so that it can be used in the 'test' stage.
+    paths: 
+      - build/compile_commands.json
+
+# Runs code analysis with C/C++test.
+cpptest-sast:
+  stage: test
+  script:
+    # Configures advanced reporting options / SCM integration.
+    - echo "Configuring reporting options..."    
+    - echo "report.format=xml,html,sast-gitlab" > report.properties
+    - echo "report.scontrol=min" >> report.properties
+    - echo "scontrol.rep.type=git" >> report.properties
+    - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
+    - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    - echo "scontrol.branch=$CI_COMMIT_BRANCH" >> report.properties
+    # Launches C/C++test.
+    - echo "Running C/C++test..."
+    - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input build/compile_commands.json -module . -settings report.properties
+  
+  artifacts:
+    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    reports:
+      sast: reports/report.sast
+    # Uploads all report files (.xml, .html, .sast) as build artifacts.
+    paths:
+      - reports/*
