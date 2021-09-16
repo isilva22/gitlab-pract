@@ -27,7 +27,8 @@ To analyze your code with Parasoft C/C++test and review analysis results in Gitl
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
-#### Run C/C++test Standard with CMake project (see [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-cmake/.gitlab-ci.yml))
+#### Run C/C++test Standard with CMake project
+See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-cmake/.gitlab-ci.yml)
 
 ```yaml
 # This is a basic pipeline to help you get started with the C/C++test for a CMake-based project.
@@ -76,7 +77,8 @@ cpptest-sast:
       - reports/*
 ```
 
-#### Run C/C++test Standard with Make project (see [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-make/.gitlab-ci.yml))
+#### Run C/C++test Standard with Make project
+See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-make/.gitlab-ci.yml)
 
 ```yaml
 # This is a basic pipeline to help you get started with the C/C++test for a Make-based project.
@@ -122,7 +124,8 @@ cpptest-sast:
       - reports/*
 ```
 
-#### Run C/C++test Professional with Make project (see [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-professional-make/.gitlab-ci.yml))
+#### Run C/C++test Professional with Make project
+See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-professional-make/.gitlab-ci.yml)
 
 ```yaml
 # This is a basic pipeline to help you get started with the C/C++test Professional for a Make-based project.
