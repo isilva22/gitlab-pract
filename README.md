@@ -19,10 +19,10 @@ To analyze your code with Parasoft C/C++test and review analysis results in Gitl
 
 ### Prerequisites
 
-* This extension requires Parasoft C/C++test with a valid Parasoft license.
+* This extension requires Parasoft C/C++test 2021.2 (or newer) with a valid Parasoft license.
 * We recommend that you execute the pipeline on a GitLab runner with the following components installed and configured on the runner:
    - C/C++ build toolchain
-   - Parasoft C/C++test
+   - Parasoft C/C++test 2021.2 (or newer)
 
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
