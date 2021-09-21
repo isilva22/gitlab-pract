@@ -10,6 +10,7 @@ Please visit the [official Parasoft website](http://www.parasoft.com) for more i
 
 - [Quick start](#quick-start)
 - [Example Pipelines](#example-pipelines)
+- [Reviewing Analysis Results](#reviewing-analysis-results)
 
 ## Quick start
 
