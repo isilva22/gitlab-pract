@@ -1,4 +1,4 @@
-# This is a basic pipeline to help you get started with the C/C++test for a Make-based project.
+# This is a basic pipeline to help you get started with C/C++test integration to analyze a Make-based project.
 
 stages:
   - build         
@@ -20,7 +20,7 @@ build-make:
 cpptest-sast:
   stage: test
   script:
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -33,7 +33,7 @@ cpptest-sast:
     - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input cpptestscan.bdf -module . -settings report.properties
   
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .html, .sast) as build artifacts.

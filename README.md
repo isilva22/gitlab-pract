@@ -155,7 +155,7 @@ cpptest-sast:
     - echo "Configuring project options..."    
     - echo "bdf.import.compiler.family=gcc_9-64" > project.properties
     - echo "bdf.import.location=." >> project.properties
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
