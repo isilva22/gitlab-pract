@@ -1,4 +1,4 @@
-# This is a basic pipeline to help you get started with the C/C++test Professional for a Make-based project.
+# This is a basic pipeline to help you get started with C/C++test Professional integration to analyze a Make-based project.
 
 stages:
   - build         
@@ -24,7 +24,7 @@ cpptest-sast:
     - echo "Configuring project options..."    
     - echo "bdf.import.compiler.family=gcc_9-64" > project.properties
     - echo "bdf.import.location=." >> project.properties
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -36,10 +36,10 @@ cpptest-sast:
     - echo "Running C/C++test..."
     - cpptestcli -config "builtin://Recommended Rules" -data $CI_BUILDS_DIR/cpptest-workspace-$CI_PIPELINE_ID -bdf cpptestscan.bdf -report reports -localsettings project.properties -localsettings report.properties
   after_script:
-    # Removes workspace folder.
+    # Removes the workspace folder.
     - rm -rf $CI_BUILDS_DIR/cpptest-workspace-$CI_PIPELINE_ID
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .sast) as build artifacts.

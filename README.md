@@ -1,6 +1,6 @@
-# Parasoft C/C++test integration for GitLab
+# Parasoft C/C++test Integration for GitLab
 
-This integration enables you to run code analysis with Parasoft C/C++test and review analysis results directly in GitLab Pipelines.
+This project provides example pipelines that demonstrate how to integrate Parasoft C/C++test with GitLab. The integration enables you to run code analysis with Parasoft C/C++test and review analysis results directly in GitLab.
 
 Parasoft C/C++test uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, unit testing, and more, to help you verify code quality and ensure compliance with industry standards, such as MISRA, AUTOSAR, and CERT.
  - Request [a free trial](https://www.parasoft.com/products/parasoft-c-ctest/try/) to receive access to Parasoft C/C++test's features and capabilities.
@@ -10,12 +10,16 @@ Please visit the [official Parasoft website](http://www.parasoft.com) for more i
 
 - [Quick start](#quick-start)
 - [Example Pipelines](#example-pipelines)
+- [Reviewing Analysis Results](#reviewing-analysis-results)
 
 ## Quick start
 
-To analyze your code with Parasoft C/C++test and review analysis results in GitLab Pipelines, you need to customize your pipeline to include:
- - Integration with your C/C++ build to determine the scope of analysis. 
- - The job to run C/C++test and upload analysis report in the SAST format.
+To analyze your code with Parasoft C/C++test and review analysis results in GitLab, you need to customize your pipeline to include:
+* Integration with your C/C++ build to determine the scope of analysis. 
+* A job that will:
+  - run C/C++test.
+  - upload the analysis report in the SAST format.
+  - upload the C/C++test analysis reports in other formats (XML, HTML, etc.).
 
 ### Prerequisites
 
@@ -28,10 +32,10 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
 #### Run C/C++test Standard with CMake project
-See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-cmake/.gitlab-ci.yml)
+See also the example [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-cmake/.gitlab-ci.yml) file.
 
 ```yaml
-# This is a basic pipeline to help you get started with the C/C++test for a CMake-based project.
+# This is a basic pipeline to help you get started with C/C++test integration to analyze a CMake-based project.
 
 stages:
   - build         
@@ -43,7 +47,7 @@ build-cmake:
     # Configures your CMake project. Be sure the compile_commands.json file is created.
     - echo "Configuring project..."
     - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
-    # Builds your CMake project. (This step is optional, as it is not required for code analysis).
+    # Builds your CMake project. This step is optional, as it is not required for code analysis.
     - echo "Building project..."
     - cmake --build build
   artifacts: 
@@ -55,7 +59,7 @@ build-cmake:
 cpptest-sast:
   stage: test
   script:
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -69,7 +73,7 @@ cpptest-sast:
     - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input build/compile_commands.json -module . -settings report.properties
   
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .html, .sast) as build artifacts.
@@ -78,10 +82,10 @@ cpptest-sast:
 ```
 
 #### Run C/C++test Standard with Make project
-See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-make/.gitlab-ci.yml)
+See also the example [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-standard-make/.gitlab-ci.yml) file.
 
 ```yaml
-# This is a basic pipeline to help you get started with the C/C++test for a Make-based project.
+# This is a basic pipeline to help you get started with C/C++test integration to analyze a Make-based project.
 
 stages:
   - build         
@@ -103,7 +107,7 @@ build-make:
 cpptest-sast:
   stage: test
   script:
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -116,7 +120,7 @@ cpptest-sast:
     - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input cpptestscan.bdf -module . -settings report.properties
   
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .html, .sast) as build artifacts.
@@ -125,10 +129,10 @@ cpptest-sast:
 ```
 
 #### Run C/C++test Professional with Make project
-See also: [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-professional-make/.gitlab-ci.yml)
+See also the example [.gitlab-ci.yml](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/pipelines/cpptest-professional-make/.gitlab-ci.yml) file.
 
 ```yaml
-# This is a basic pipeline to help you get started with the C/C++test Professional for a Make-based project.
+# This is a basic pipeline to help you get started with C/C++test Professional integration to analyze a Make-based project.
 
 stages:
   - build         
@@ -154,7 +158,7 @@ cpptest-sast:
     - echo "Configuring project options..."    
     - echo "bdf.import.compiler.family=gcc_9-64" > project.properties
     - echo "bdf.import.location=." >> project.properties
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -166,16 +170,23 @@ cpptest-sast:
     - echo "Running C/C++test..."
     - cpptestcli -config "builtin://Recommended Rules" -data $CI_BUILDS_DIR/cpptest-workspace-$CI_PIPELINE_ID -bdf cpptestscan.bdf -report reports -localsettings project.properties -localsettings report.properties
   after_script:
-    # Removes workspace folder.
+    # Removes the workspace folder.
     - rm -rf $CI_BUILDS_DIR/cpptest-workspace-$CI_PIPELINE_ID
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .sast) as build artifacts.
     paths:
       - reports/*
 ```
+
+## Reviewing Analysis Results
+When the pipeline completes, you can review the violations reported by C/C++test as code vulnerabilities:
+* in the *Security* tab of the GitLab pipeline.
+* on GitLab's Vulnerability Report.
+
+You can click each violation reported by C/C++test to review the details and navigate to the code that triggered the violation.
 
 ---
 ## About

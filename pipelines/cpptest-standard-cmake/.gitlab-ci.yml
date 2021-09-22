@@ -1,4 +1,4 @@
-# This is a basic pipeline to help you get started with the C/C++test for a CMake-based project.
+# This is a basic pipeline to help you get started with C/C++test integration to analyze a CMake-based project.
 
 stages:
   - build         
@@ -10,7 +10,7 @@ build-cmake:
     # Configures your CMake project. Be sure the compile_commands.json file is created.
     - echo "Configuring project..."
     - cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -S . -B build
-    # Builds your CMake project. (This step is optional, as it is not required for code analysis).
+    # Builds your CMake project. This step is optional, as it is not required for code analysis.
     - echo "Building project..."
     - cmake --build build
   artifacts: 
@@ -22,7 +22,7 @@ build-cmake:
 cpptest-sast:
   stage: test
   script:
-    # Configures advanced reporting options / SCM integration.
+    # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
     - echo "report.scontrol=min" >> report.properties
@@ -35,7 +35,7 @@ cpptest-sast:
     - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input build/compile_commands.json -module . -settings report.properties
   
   artifacts:
-    # Uploads analysis results in the SAST GitLab format, so that they are displayed as GitLab Vulnerability Report.
+    # Uploads analysis results in the GitLab SAST format, so that they are displayed in GitLab.
     reports:
       sast: reports/report.sast
     # Uploads all report files (.xml, .html, .sast) as build artifacts.
