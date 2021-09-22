@@ -15,10 +15,11 @@ Please visit the [official Parasoft website](http://www.parasoft.com) for more i
 ## Quick start
 
 To analyze your code with Parasoft C/C++test and review analysis results in GitLab, you need to customize your pipeline to include:
- - Integration with your C/C++ build to determine the scope of analysis. 
- - The job to run C/C++test and upload the analysis report in the SAST format.
- - The job to upload the C/C++test analysis reports in other formats (XML, HTML, etc.) as pipeline artifacts.
-
+* Integration with your C/C++ build to determine the scope of analysis. 
+* A job that will:
+  - run C/C++test.
+  - upload the analysis report in the SAST format.
+  - upload the C/C++test analysis reports in other formats (XML, HTML, etc.).
 
 ### Prerequisites
 
