@@ -66,7 +66,7 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
-    - echo "scontrol.branch=$CI_COMMIT_BRANCH" >> report.properties
+    - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
 
     # Launches C/C++test.
     - echo "Running C/C++test..."
@@ -114,7 +114,7 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
-    - echo "scontrol.branch=$CI_COMMIT_BRANCH" >> report.properties
+    - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
     - cpptestcli -compiler gcc_9-64 -config "builtin://Recommended Rules" -input cpptestscan.bdf -module . -settings report.properties
@@ -165,7 +165,7 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
-    - echo "scontrol.branch=$CI_COMMIT_BRANCH" >> report.properties
+    - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
     - cpptestcli -config "builtin://Recommended Rules" -data $CI_BUILDS_DIR/cpptest-workspace-$CI_PIPELINE_ID -bdf cpptestscan.bdf -report reports -localsettings project.properties -localsettings report.properties
