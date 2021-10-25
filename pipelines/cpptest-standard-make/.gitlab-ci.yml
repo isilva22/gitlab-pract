@@ -1,4 +1,4 @@
-# This is a basic pipeline to help you get started with C/C++test integration to analyze a Make-based project.
+# This is a basic pipeline to help you get started with C/C++test integration to analyze a Make-based project. 
 
 stages:
   - build         
