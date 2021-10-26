@@ -27,6 +27,7 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
 * We recommend that you execute the pipeline on a GitLab runner with the following components installed and configured on the runner:
    - C/C++ build toolchain
    - Parasoft C/C++test 2021.2 (or newer)
+* We recommend that you use PowerShell Core. If you use Windows PowerShell 5.1 or earlier, you must ensure that the encoding for the .properties file created by the script is set to UTF-8.
 
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
@@ -66,6 +67,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to encode backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
 
     # Launches C/C++test.
