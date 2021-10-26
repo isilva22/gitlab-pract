@@ -117,6 +117,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
@@ -168,6 +170,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
