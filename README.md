@@ -27,6 +27,7 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
 * We recommend that you execute the pipeline on a GitLab runner with the following components installed and configured on the runner:
    - C/C++ build toolchain
    - Parasoft C/C++test 2021.2 (or newer)
+   - On Windows, we recommend that you use PowerShell Core 6 or later. If you use Windows PowerShell 5.1, you must ensure the correct file encoding - see the example pipelines for details.
 
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
@@ -59,6 +60,9 @@ build-cmake:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
@@ -66,6 +70,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
 
     # Launches C/C++test.
@@ -107,6 +113,9 @@ build-make:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
@@ -114,6 +123,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
@@ -154,6 +165,9 @@ build-make:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures project.
     - echo "Configuring project options..."    
     - echo "bdf.import.compiler.family=gcc_9-64" > project.properties
@@ -165,6 +179,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."

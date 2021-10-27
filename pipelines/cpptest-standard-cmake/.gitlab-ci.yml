@@ -22,6 +22,9 @@ build-cmake:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
@@ -29,6 +32,8 @@ cpptest-sast:
     - echo "scontrol.rep.type=git" >> report.properties
     - echo "scontrol.rep.git.url=$CI_PROJECT_URL" >> report.properties
     - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR" >> report.properties
+    # When running on Windows, be sure to escape backslashes:
+    # - echo "scontrol.rep.git.workspace=$CI_PROJECT_DIR".Replace("\", "\\") >> report.properties
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     # Launches C/C++test.
     - echo "Running C/C++test..."
