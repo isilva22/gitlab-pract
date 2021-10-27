@@ -22,6 +22,9 @@ build-cmake:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures advanced reporting options and SCM integration.
     - echo "Configuring reporting options..."    
     - echo "report.format=xml,html,sast-gitlab" > report.properties
