@@ -20,6 +20,9 @@ build-make:
 cpptest-sast:
   stage: test
   script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
     # Configures project.
     - echo "Configuring project options..."    
     - echo "bdf.import.compiler.family=gcc_9-64" > project.properties
