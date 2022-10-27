@@ -204,6 +204,15 @@ When the pipeline completes, you can review the violations reported by C/C++test
 
 You can click each violation reported by C/C++test to review the details and navigate to the code that triggered the violation.
 
+## Baselining Static Analysis Results in Merge Requests
+In GitLab, when a merge request is created, static analysis results generated for the branch to be merged are compared with the results generated for the integration branch. As a result, only new violations are presented in the merge request view, allowing developers to focus on the relevant problems for their code changes. 
+
+### Defining a Merge Request Policy
+You can define a merge request policy for your integration branch that will block merge requests due to new violations. To configure this:
+1. In your GitLab project view, go to **Security & Compliance>Policies**, and select **New policy**.
+1. Select the **Scan result policy** type.
+1. In the **Policy details** section, define a rule for Static Application Security Testing (select “IF SAST…”). Configure additional options, if needed.
+
 ---
 ## About
 C/C++test integration for GitLab - Copyright (C) 2021 Parasoft Corporation
