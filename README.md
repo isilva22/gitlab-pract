@@ -4,7 +4,7 @@ This project provides example pipelines that demonstrate how to integrate Paraso
 
 Parasoft C/C++test uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, unit testing, and more, to help you verify code quality and ensure compliance with industry standards, such as MISRA, AUTOSAR, and CERT.
  - Request [a free trial](https://www.parasoft.com/products/parasoft-c-ctest/try/) to receive access to Parasoft C/C++test's features and capabilities.
- - See the [user guide](https://docs.parasoft.com/display/CPPTEST20212) for information about Parasoft C/C++test's capabilities and usage.
+ - See the [user guide](https://docs.parasoft.com/display/CPPTEST20222) for information about Parasoft C/C++test's capabilities and usage.
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft C/C++test and other Parasoft products.
 
@@ -215,4 +215,4 @@ You can define a merge request policy for your integration branch that will bloc
 
 ---
 ## About
-C/C++test integration for GitLab - Copyright (C) 2021 Parasoft Corporation
+C/C++test integration for GitLab - Copyright (C) 2022 Parasoft Corporation
