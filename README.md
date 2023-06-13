@@ -29,6 +29,12 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
    - Parasoft C/C++test 2021.2 (or newer)
    - On Windows, we recommend that you use PowerShell Core 6 or later. If you use Windows PowerShell 5.1, you must ensure the correct file encoding - see the example pipelines for details.
 
+### Generating SAST v15 reports
+
+* Latest GitLab versions may require SAST v15 reports to present Static Analysis violations. To enable SAST v15 reports with existing Parasoft C/C++test installations, go to:
+   - [Generating SAST v15 report with C/C++test Standard](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15)
+   - [Generating SAST v15 report with C/C++test Professional](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-professional-sast15)
+
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
 
