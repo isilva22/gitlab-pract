@@ -13,9 +13,9 @@ To report Static Analysis results using SAST v15 format:
     # MODIFICATION: use 'custom' instead of 'sast-gitlab':  
     - echo "report.format=xml,html,custom" > report.properties
     # MODIFICATION: configure file extension for the SAST report:  
-    - echo "report.custom.extension=sast" > report.properties
+    - echo "report.custom.extension=sast" >> report.properties
     # MODIFICATION: specify location of the SAST report transformer:  
-    - echo "report.custom.xsl.file=<CPPTEST_INSTALL_DIR>/sast.xsl" > report.properties
+    - echo "report.custom.xsl.file=<CPPTEST_INSTALL_DIR>/sast.xsl" >> report.properties
     # ### sast-15-end ###
     
     - echo "report.scontrol=min" >> report.properties
