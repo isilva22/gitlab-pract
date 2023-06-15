@@ -2,8 +2,8 @@
 
 To report Static Analysis results using SAST v15 format:
 
-1. Copy [`sast.xsl`](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15/sast.xsl) file into C/C++test installation root folder (`<CPPTEST_INSTALL_DIR>`)
-2. Modify your GitLab pipeline to use new `sast.xsl` report transformer - see `# MODIFICATION` lines below:
+1. Copy the [`sast.xsl`](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15/sast.xsl) file into the C/C++test installation root folder (`<CPPTEST_INSTALL_DIR>`).
+2. Modify your GitLab pipeline to use the new `sast.xsl` report transformer - see `# MODIFICATION` lines below:
 ```yaml
     ...
     # Configures advanced reporting options and SCM integration.
@@ -27,4 +27,4 @@ To report Static Analysis results using SAST v15 format:
     - echo "scontrol.rep.git.branch=$CI_COMMIT_BRANCH" >> report.properties
     ...
 ```
-3. Run your GitLab pipeline
+3. Run your GitLab pipeline.
