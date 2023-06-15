@@ -4,7 +4,7 @@ This project provides example pipelines that demonstrate how to integrate Paraso
 
 Parasoft C/C++test uses a comprehensive set of analysis techniques, including pattern-based static analysis, dataflow analysis, metrics, code coverage, unit testing, and more, to help you verify code quality and ensure compliance with industry standards, such as MISRA, AUTOSAR, and CERT.
  - Request [a free trial](https://www.parasoft.com/products/parasoft-c-ctest/try/) to receive access to Parasoft C/C++test's features and capabilities.
- - See the [user guide](https://docs.parasoft.com/display/CPPTEST20222) for information about Parasoft C/C++test's capabilities and usage.
+ - See the [user guide](https://docs.parasoft.com/display/CPPTEST20231) for information about Parasoft C/C++test's capabilities and usage.
 
 Please visit the [official Parasoft website](http://www.parasoft.com) for more information about Parasoft C/C++test and other Parasoft products.
 
@@ -28,6 +28,12 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
    - C/C++ build toolchain
    - Parasoft C/C++test 2021.2 (or newer)
    - On Windows, we recommend that you use PowerShell Core 6 or later. If you use Windows PowerShell 5.1, you must ensure the correct file encoding - see the example pipelines for details.
+
+### Generating SAST v15 reports
+
+Latest GitLab versions may require SAST v15 reports to present Static Analysis violations. To enable SAST v15 reports with existing Parasoft C/C++test installations, go to:
+* [Generating SAST v15 report with C/C++test Standard](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15)
+* [Generating SAST v15 report with C/C++test Professional](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-professional-sast15)
 
 ## Example Pipelines
 The following examples show simple pipelines for Make and CMake-based projects. The examples assume that C/C++test is run on a GitLab runner and the path to the `cpptestcli` executable is available on `$PATH`.
@@ -215,4 +221,4 @@ You can define a merge request policy for your integration branch that will bloc
 
 ---
 ## About
-C/C++test integration for GitLab - Copyright (C) 2022 Parasoft Corporation
+C/C++test integration for GitLab - Copyright (C) 2023 Parasoft Corporation
