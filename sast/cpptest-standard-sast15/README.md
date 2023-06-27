@@ -1,5 +1,7 @@
 # Generating SAST v15 report with C/C++test Standard
 
+_Note: C/C++test 2023.1.1 (or newer) will generate SAST v15 reports by default._
+
 To report Static Analysis results using SAST v15 format:
 
 1. Copy the [`sast.xsl`](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15/sast.xsl) file into the C/C++test installation root folder (`<CPPTEST_INSTALL_DIR>`).

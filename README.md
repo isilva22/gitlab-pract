@@ -31,7 +31,7 @@ To analyze your code with Parasoft C/C++test and review analysis results in GitL
 
 ### Generating SAST v15 reports
 
-Latest GitLab versions may require SAST v15 reports to present Static Analysis violations. To enable SAST v15 reports with existing Parasoft C/C++test installations, go to:
+Latest GitLab versions may require SAST v15 reports to present Static Analysis violations. C/C++test 2023.1.1 (or newer) will generate SAST v15 reports by default. To enable SAST v15 reports with previous Parasoft C/C++test installations, go to:
 * [Generating SAST v15 report with C/C++test Standard](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-standard-sast15)
 * [Generating SAST v15 report with C/C++test Professional](https://gitlab.com/parasoft/cpptest-gitlab/-/blob/master/sast/cpptest-professional-sast15)
 
