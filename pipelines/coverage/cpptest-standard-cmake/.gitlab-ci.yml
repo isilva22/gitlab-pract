@@ -1,0 +1,67 @@
+# This is a basic pipeline to help you get started with C/C++test integration to collect code coverage for a CMake-based project.
+
+# For details on how to configure CMake project for code coverage analysis, see:
+# https://docs.parasoft.com/display/CPPTEST20231/Collecting+Application+Coverage+for+CMake+Projects
+
+# Be sure to configure variables below.
+variables:
+  CMAKE_PROJECT_NAME: "cmake-project-name"
+  CMAKE_APP_NAME: "app-executable"
+  CPPTEST_INSTALL_DIR: "path/to/cpptest"
+  CPPTEST_XSL_DIR: "path/to/xsl"
+  CPPTEST_SAXON_DIR: "path/to/saxon"
+
+stages:
+  - test
+
+# Runs code coverage analysis with C/C++test.
+cpptest-coverage:
+  variables:
+    CPPTEST_REPORTS_DIR: "build/cpptest-coverage/$CMAKE_PROJECT_NAME/reports"
+
+  stage: test
+  
+  # See: https://docs.gitlab.com/ee/ci/testing/code_coverage.html#add-test-coverage-results-using-coverage-keyword 
+  coverage: '/ lines \(\d+% covered\)/'
+  
+  script:
+    # When running on Windows with PowerShell 5.1, be sure to enforce the default file encoding:
+    # - $PSDefaultParameterValues['Out-File:Encoding'] = 'default'
+
+    # Configures your CMake project and enables code coverage analysis.
+    # Be sure 'cpptest-coverage.cmake' was included into your CMake project.
+    - echo "Configuring project with coverage enabled..."
+    - cmake -DCPPTEST_COVERAGE=ON -DCPPTEST_HOME=$CPPTEST_INSTALL_DIR -S . -B build
+    
+    # Builds your CMake project.
+    - echo "Building project..."
+    - cmake --build build
+
+    # Runs the instrumented application.
+    - echo "Running tests..."
+    - build/$CMAKE_APP_NAME
+
+    # Generates the code coverage report into:
+    #   build/cpptest-coverage/<CMAKE_PROJECT_NAME>/reports
+    - echo "Generating C/C++test reports..."
+    - cmake --build build --target cpptest_coverage_report
+
+    # Converts the coverage report to Cobertura format.
+    #
+    # To use Saxon for report transformation, a Java executable is required. 
+    # C/C++test includes Java which can be used for this purpose.
+    #
+    # When running on Windows, be sure to replace backslashes:
+    #   - $CI_PROJECT_DIR = $CI_PROJECT_DIR.Replace("\", "/")
+    - echo "Generating Cobertura report..."
+    - $CPPTEST_INSTALL_DIR/bin/jre/bin/java -jar "$CPPTEST_SAXON_DIR/saxon-he-12.2.jar" -xsl:"$CPPTEST_XSL_DIR/cobertura.xsl" -s:"$CPPTEST_REPORTS_DIR/coverage.xml" -o:"$CPPTEST_REPORTS_DIR/cobertura.xml" -t pipelineBuildWorkingDirectory=$CI_PROJECT_DIR
+
+  artifacts:
+    # Uploads code coverage results in the Cobertura format, so that they are displayed in GitLab.
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: $CPPTEST_REPORTS_DIR/cobertura.xml
+    # Uploads all report files (.xml, .html) as build artifacts.
+    paths:
+      - $CPPTEST_REPORTS_DIR/*
